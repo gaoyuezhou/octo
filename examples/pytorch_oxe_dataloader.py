@@ -69,10 +69,10 @@ class TorchRLDSImageDataset(torch.utils.data.IterableDataset):
     def __len__(self):
         return self.size
         
-def make_dset(transform):
+def make_dset(transform, name='oxe_magic_soup', window_size=1):
     print("load args...")
     dataset_kwargs_list, sample_weights = make_oxe_dataset_kwargs_and_weights(
-        "oxe_magic_soup",
+        name,
         DATA_PATH,
         load_camera_views=("primary", "wrist"),
     )
@@ -86,7 +86,7 @@ def make_dset(transform):
         balance_weights=True,
         traj_transform_kwargs=dict(
             goal_relabeling_strategy="uniform",
-            window_size=1,
+            window_size=window_size,
             future_action_window_size=3,
             subsample_length=100,
         ),
