@@ -33,13 +33,10 @@ class TorchRLDSImageDataset(torch.utils.data.IterableDataset):
         self.size = self.get_len()
 
         self.cnt = 0
-        # for sample in self._rlds_dataset.as_numpy_iterator():
-        #     print("##### ", sample['observation']['image_primary'].shape)
-        #     import pdb; pdb.set_trace()
         self.iterator = self._rlds_dataset.as_numpy_iterator()
     
     def reset_state(self):
-        print("### RESET State")
+        print("Reset State...")
         self.cnt = 0
         self.iterator = self._rlds_dataset.as_numpy_iterator()
        
@@ -47,10 +44,8 @@ class TorchRLDSImageDataset(torch.utils.data.IterableDataset):
         for sample in self.iterator:
             if self.cnt < self.size:
                 processed_sample = sample['observation']['image_primary'].squeeze(0)
-                # processed_sample = rearrange(processed_sample, 'h w c -> c h w')
                 processed_sample = self.transform(processed_sample)
                 self.cnt += 1
-                # print(f"yield item, self.cnt: {self.cnt}  self.size: {self.size}")
                 yield processed_sample, sample['action']# only use primary camera image for now, after squeeze: [b, h]
             else:
                 break
@@ -71,24 +66,8 @@ class TorchRLDSImageDataset(torch.utils.data.IterableDataset):
         else:
             return int(0.05 * total_len)
 
-
     def __len__(self):
         return self.size
-        # lengths = np.array(
-        #     [
-        #         stats["num_transitions"].astype('float64')
-        #         for stats in self._rlds_dataset.dataset_statistics
-        #     ]
-        # )
-        # if hasattr(self._rlds_dataset, "sample_weights"): # sample_weights addup to 1, lengths might not be an integer
-        #     lengths *= np.array(self._rlds_dataset.sample_weights)
-        # lengths = np.floor(lengths).astype('int64')
-        # total_len = lengths.sum()
-        # if self._is_train:
-
-        #     return int(0.95 * total_len)
-        # else:
-        #     return int(0.05 * total_len)
         
 def make_dset(transform):
     print("load args...")
@@ -150,18 +129,7 @@ def make_dset(transform):
         traj_read_threads=48,
     )
 
-
     pytorch_dataset = TorchRLDSImageDataset(dataset, transform=transform)
     return pytorch_dataset
 
-# dataloader = DataLoader(
-#     pytorch_dataset,
-#     batch_size=16,
-#     num_workers=0,  # important to keep this to 0 so PyTorch does not mess with the parallelism
-# )
-
-# for i, sample in tqdm.tqdm(enumerate(dataloader)):
-#     import pdb; pdb.set_trace()
-#     if i == 5000:
-#         break
 
