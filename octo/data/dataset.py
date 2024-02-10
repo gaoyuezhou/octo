@@ -361,7 +361,8 @@ def make_dataset_from_rlds(
 
         return traj
 
-    builder = tfds.builder(name, data_dir=data_dir)
+#    builder = tfds.builder(name, data_dir=data_dir)
+    builder = tfds.builder_from_directory(builder_dir=f'/vast/work/public/ml-datasets/x-embodiment/{name}/0.1.0')
 
     # load or compute dataset statistics
     if isinstance(dataset_statistics, str):

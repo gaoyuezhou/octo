@@ -795,7 +795,7 @@ def gnm_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
 
 
 OXE_STANDARDIZATION_TRANSFORMS = {
-    "bridge_dataset": bridge_dataset_transform,
+    "bridge": bridge_dataset_transform,
     "fractal20220817_data": rt1_dataset_transform,
     "kuka": kuka_dataset_transform,
     "taco_play": taco_play_dataset_transform,

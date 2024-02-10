@@ -42,11 +42,15 @@ OXE_FRANKA_MIX = [
     ("cmu_play_fusion", 1.0),
 ]
 
+TST = [
+    ("imperialcollege_sawyer_wrist_cam", 1.0),
+]
+
 
 OXE_MAGIC_SOUP = [
     ("fractal20220817_data", 0.54087122203),
     ("kuka", 0.8341046294),
-    ("bridge_dataset", 1.0),
+   # ("bridge", 1.0),
     ("taco_play", 2.0),
     ("jaco_play", 1.0),
     ("berkeley_cable_routing", 1.0),
@@ -59,7 +63,7 @@ OXE_MAGIC_SOUP = [
     ("stanford_hydra_dataset_converted_externally_to_rlds", 2.0),
     ("austin_buds_dataset_converted_externally_to_rlds", 1.0),
     ("nyu_franka_play_dataset_converted_externally_to_rlds", 3.0),
-    ("furniture_bench_dataset_converted_externally_to_rlds", 0.1),
+   # ("furniture_bench_dataset_converted_externally_to_rlds", 0.1),
     ("ucsd_kitchen_dataset_converted_externally_to_rlds", 2.0),
     ("austin_sailor_dataset_converted_externally_to_rlds", 1.0),
     ("austin_sirius_dataset_converted_externally_to_rlds", 1.0),
@@ -133,4 +137,5 @@ OXE_NAMED_MIXES = {
     "rtx": RT_X_MIX,
     "rtx_franka": RT_X_MIX + OXE_FRANKA_MIX,
     "oxe_magic_soup": OXE_MAGIC_SOUP,
+    'tst': TST,
 }
